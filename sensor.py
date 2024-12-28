@@ -1,8 +1,6 @@
-# this is 2nd file and this is the only hardware file and this is the sesnor file which is detecting the sensor's  
-
 from flask import Flask, request, jsonify
-from flask_cors import CORS
-from pymongo import MongoClient
+from flask_cors import CORS # type: ignore
+from pymongo import MongoClient # type: ignore
 import datetime
 from urllib.parse import quote_plus
 
@@ -11,10 +9,12 @@ app = Flask(__name__)
 CORS(app)  # Enable Cross-Origin Resource Sharing
 
 # MongoDB Setup
-username = quote_plus("dustbin")  # Replace with your MongoDB username
-password = quote_plus("Dustbin@123")  # Replace with your MongoDB password
-# MONGO_URI = f"mongodb+srv://{username}:{password}@cluster0.fmudd.mongodb.net/" ansh wala URl
-MONGO_URI= f'mongodb+srv://{username}:{password}@cluster0.6isqu.mongodb.net/' #Mayank URL
+username = quote_plus("admin")  # Replace with your MongoDB username
+password = quote_plus("Mayank2503")  # Replace with your MongoDB password
+
+# MongoDB connection details
+host = "ec2-51-20-91-16.eu-north-1.compute.amazonaws.com"  # Update with the correct host
+MONGO_URI = f"mongodb+srv://{username}:{password}@{host}/"
 
 DATABASE_NAME = "garbage_detection"
 COLLECTION_NAME = "sensor_data"
@@ -42,7 +42,7 @@ def store_data():
         data = request.json
 
         # Validate data: Check if all required fields are present
-        required_fields = ["moisture", "weight", "temperature", "humidity", "distance", "dryness", "wetness"]
+        required_fields = ["moisture", "weight", "temperature", "humidity", "drynessPercentage", "wetnessPercentage", "classification", "distance"]
         if not all(field in data for field in required_fields):
             return jsonify({"error": "Missing required data fields"}), 400
 
