@@ -11,7 +11,7 @@ from urllib.parse import quote_plus
 import requests
 
 # Initialize Flask app
-app = Flask(_name_)
+app = Flask(__name__)
 
 # MongoDB Setup
 # MongoDB credentials
@@ -219,5 +219,5 @@ def generate_video():
 def video_feed():
     return Response(generate_video(), mimetype='multipart/x-mixed-replace; boundary=frame')
 
-if _name_ == '_main_':
+if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)
