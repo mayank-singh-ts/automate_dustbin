@@ -69,7 +69,7 @@ def fetch_frame():
             img_array = np.asarray(bytearray(response.content), dtype=np.uint8)
             return cv2.imdecode(img_array, cv2.IMREAD_COLOR)
     except Exception as e:
-        print(f"Error fetching frame: {e}")#
+        print(f"Error fetching frame: {e}")
     return None
 
 # Draw a curved boundary line
